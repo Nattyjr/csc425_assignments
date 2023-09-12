@@ -1,0 +1,39 @@
+Nate Question 8
+
+#include <stdio.h>
+#include <unistd.h>
+
+int main() {
+    int fd[2]; // File descriptors for the pipe
+    pid_t child1, child2;
+
+    // Create the pipe
+    if (pipe(fd) == -1) {
+        perror("pipe");
+        return 1;
+    }
+
+    // Fork the first child process
+    child1 = fork();
+    if (child1 == -1) {
+        perror("fork");
+        return 1;
+    }
+
+    if (child1 == 0) {
+        // First child process
+        close(fd[0]); // Close the read end of the pipe
+        dup2(fd[1], STDOUT_FILENO); // Redirect stdout to the write end of the pipe
+
+        // Execute a command that writes output to stdout
+        execlp("echo", "echo", "Hello, world!", NULL);
+
+        perror("exec");
+        return 1;
+    } else {
+        // Fork the second child process
+        child2 = fork();
+        if (child2 == -1) {
+            perror("fork");
+            return 0;
+      }

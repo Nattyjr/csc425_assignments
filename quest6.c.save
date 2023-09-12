@@ -1,0 +1,42 @@
+Nate- Question 6
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+
+int main() {
+    pid_t pid;
+
+    // Create a child process
+    pid = fork();
+
+    if (pid < 0) {
+        perror("fork failed");
+        exit(EXIT_FAILURE);
+    }
+
+    if (pid == 0) {
+        // Child process
+        printf("Child process (PID %d)\n", getpid());
+        sleep(2);
+        exit(EXIT_SUCCESS);
+    } else {
+        // Parent process
+        printf("Parent process (PID %d)\n", getpid()); 
+        int status;
+        pid_t result;
+
+        // Wait for the child process to finish
+        result = waitpid(pid, &status, 0);
+
+        if (result == -1) {
+            perror("waitpid failed");
+            exit(EXIT_FAILURE);
+        }
+
+        printf("Child process (PID %d) finished\n", result);
+    }
+
+    return 0;
+}

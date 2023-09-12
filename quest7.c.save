@@ -1,0 +1,24 @@
+Nate Qyestion 7
+
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+
+int main() {
+    pid_t pid = fork();
+
+    if (pid == 0) {
+        // Child process
+        close(STDOUT_FILENO); // Close STDOUT file descriptor
+
+        printf("This message will not be displayed\n");
+    } else {
+        // Parent process
+        printf("Message from parent process\n");
+    }
+
+    return 0;
+}
+
+/** 
+the child process closes the STDOUT_FILENO descriptor before calling printf(). As a result, the message "This message will not be displayed *//
