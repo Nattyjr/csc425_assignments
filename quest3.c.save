@@ -1,0 +1,27 @@
+#include <stdio.h>
+2 #include <stdlib.h>
+3 #include <unistd.h>
+4 #include <string.h>
+5 #include <sys/wait.h>
+6
+7 int main(int argc, char *argv[]) {
+8 printf("hello world (pid:%d)\n", (int) getpid());
+9 int rc = fork();
+10 if (rc < 0) { // fork failed; exit
+11 fprintf(stderr, "fork failed\n");
+12 exit(1);
+13 } else if (rc == 0) { // child (new process)
+14 printf("hello, I am child (pid:%d)\n", (int) getpid());
+15 char *myargs[3];
+16 myargs[0] = strdup("wc"); // program: "wc" (word count)
+17 myargs[1] = strdup("p3.c"); // argument: file to count
+18 myargs[2] = NULL; // marks end of array
+19 execvp(myargs[0], myargs); // runs word count
+20 printf("this shouldn’t print out");
+21 } else { // parent goes down this path (main)
+22 int rc_wait = wait(NULL);
+23 printf("hello, I am parent of %d (rc_wait:%d) (pid:%d)\n",
+24 rc, rc_wait, (int) getpid());
+25 }
+26 return 0;
+27 }
