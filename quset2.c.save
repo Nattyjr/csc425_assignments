@@ -1,0 +1,38 @@
+/****
+
+Question 2: <Nate>
+
+#include<stdio.h>
+#include<stdlib.h>
+
+int main(){
+
+int fd= open("data.txt")
+if(fd<0){
+perror("open");
+exit(1);
+}
+
+pid_t pid- fork();
+if (pid < 0) {
+perror("fork");
+exit(1);
+}
+
+if(pid==0){
+
+write(fd,childmsg, strlen(childMsg));
+}else{
+
+char*parentMsg=""
+write(fd, parent,sg,strlen(parentMsg));
+
+wait(NULL);
+}
+
+close(fd);
+
+
+return 0;
+}
+
