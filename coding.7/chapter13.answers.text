@@ -1,0 +1,8 @@
+
+/*********************************************
+Nate:
+Question 2: <Total Memory=7960,Free=6983, Yes it matches=>
+Question 4: <The total memory usage increased but when i kill the process i gained space back, the numbers match my expectation, When i try large amount of memory i get memory allocation failed error>
+Question 7: <I see address space components, such as stack, heap, code and other many components, There are many different entities than code/stack/heap >
+Question 8: <When i run the program with different megabite sizes i see differnt values of memory uses like RSS and PSS, when i run them with a large memory allocation i noticed these values increased and it matches my expectations>
+*********************************************/
